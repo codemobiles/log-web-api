@@ -52,3 +52,8 @@ cat logs.txt
 - The `/log` endpoint requires a `content` field in the request body
 - No authentication or authorization is implemented
 - No log rotation mechanism exists - logs.txt will grow indefinitely
+
+   _httpListener = new HttpListener();
+   // 1. PC Name can check by right clicking at This PC at exploler and Rename this PC button
+   // 2. Add Firewall inbound rule at Windows Defender Firewall (Protocol Type: Any, and All Ports)
+   // netsh http add urlacl url = http://+:4444/ user=DESKTOP-CSN4HNM\codemobiles01
