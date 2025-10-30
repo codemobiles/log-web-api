@@ -17,14 +17,21 @@ app.post("/log", (req, res) => {
     return res.status(400).json({ error: "Content field is required" });
   }
 
+  // Get Bangkok time (UTC+7)
+  const bangkokTime = new Date(Date.now() + 7 * 60 * 60 * 1000);
+  const timestamp = bangkokTime.toISOString().replace('T', ' ').substring(0, 19);
+
+  // Format log entry with timestamp
+  const logEntry = `[${timestamp}] ${content}`;
+
   // Append content to log file with a new line
-  fs.appendFile(LOG_FILE, content + "\n\n", (err) => {
+  fs.appendFile(LOG_FILE, logEntry + "\n\n", (err) => {
     if (err) {
       console.error("Error writing to log file:", err);
       return res.status(500).json({ error: "Failed to write log" });
     }
 
-    res.status(200).json({ message: "Log written successfully" });
+    res.status(200).json({ message: "Log written successfully", timestamp });
   });
 });
 
