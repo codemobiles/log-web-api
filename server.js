@@ -24,6 +24,9 @@ app.post("/log", (req, res) => {
   // Format log entry with timestamp
   const logEntry = `[${timestamp}] ${content}`;
 
+  // Console log for debugging
+  console.log(`[${timestamp}] Received log request:`, content);
+
   // Append content to log file with a new line
   fs.appendFile(LOG_FILE, logEntry + "\n\n", (err) => {
     if (err) {
