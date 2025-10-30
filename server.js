@@ -19,13 +19,16 @@ app.post("/log", (req, res) => {
 
   // Get Bangkok time (UTC+7)
   const bangkokTime = new Date(Date.now() + 7 * 60 * 60 * 1000);
-  const timestamp = bangkokTime.toISOString().replace('T', ' ').substring(0, 19);
+  const timestamp = bangkokTime
+    .toISOString()
+    .replace("T", " ")
+    .substring(0, 19);
 
   // Format log entry with timestamp
   const logEntry = `[${timestamp}] ${content}`;
 
   // Console log for debugging
-  console.log(`[${timestamp}] Received log request:`, content);
+  console.log(`[${timestamp}] Received log request:`, content, "\n\n");
 
   // Append content to log file with a new line
   fs.appendFile(LOG_FILE, logEntry + "\n\n", (err) => {
